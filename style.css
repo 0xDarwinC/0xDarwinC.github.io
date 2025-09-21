@@ -1,0 +1,202 @@
+/* Custom styles for the Radiohead "My Iron Lung" theme */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0a0a14;
+    /* A very dark, deep blue/purple */
+    color: #d1d5db;
+    /* text-gray-300 */
+}
+
+.section {
+    padding: 6rem 1rem;
+}
+
+@media (min-width: 768px) {
+    .section {
+        padding: 8rem 2rem;
+    }
+}
+
+.glass-effect {
+    background: rgba(76, 29, 149, 0.15);
+    /* Faint purple glass */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(107, 33, 168, 0.2);
+}
+
+.tag {
+    background-color: #3b0764;
+    /* Dark purple for tags */
+    color: #e9d5ff;
+    /* A light lavender text */
+}
+
+.timeline-dot {
+    background-color: #a78bfa;
+    /* bg-violet-400 */
+}
+
+.timeline-line {
+    border-color: #a78bfa;
+    /* border-violet-400 */
+}
+
+/* Styles for the interactive canvas background */
+#hero-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/* Ensure hero content is on top of the canvas */
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* --- Styles for 3D Project Cards --- */
+.project-card-container {
+    perspective: 1000px;
+}
+
+.project-card {
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.project-card-container:hover .project-card {
+    box-shadow: 0 25px 50px -12px rgba(167, 139, 250, 0.25);
+}
+
+.project-card .long-desc {
+    display: none;
+}
+
+.project-card-container:hover .project-card .short-desc {
+    display: none;
+}
+
+.project-card-container:hover .project-card .long-desc {
+    display: block;
+}
+
+/* --- Styles for Scrolling Skills Section --- */
+.skills-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.skills-container {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+}
+
+.skills-track {
+    display: flex;
+    width: fit-content;
+    animation: scroll-left 60s linear infinite;
+}
+
+.skills-track.reverse {
+    animation-direction: reverse;
+}
+
+.skills-track.slower {
+    animation-duration: 90s;
+}
+
+/* Pauses the animation on hover of the entire skills block */
+.skills-wrapper:hover .skills-track {
+    animation-play-state: paused;
+}
+
+.skill-tag {
+    transition: transform 0.3s ease;
+    cursor: default;
+}
+
+/* Removed the hover effect that caused clipping */
+
+@keyframes scroll-left {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* --- GitHub Calendar Theme --- */
+.calendar .month,
+.calendar .wday {
+    fill: #d1d5db;
+    /* text-gray-300 */
+    font-size: 10px;
+}
+
+.calendar .contrib-legend {
+    display: none;
+    /* Hide the default legend */
+}
+
+.calendar rect.day[data-level="0"] {
+    fill: rgba(255, 255, 255, 0.05);
+}
+
+.calendar rect.day[data-level="1"] {
+    fill: #3b0764;
+    /* Darkest purple */
+}
+
+.calendar rect.day[data-level="2"] {
+    fill: #5b21b6;
+}
+
+.calendar rect.day[data-level="3"] {
+    fill: #7c3aed;
+}
+
+.calendar rect.day[data-level="4"] {
+    fill: #a78bfa;
+    /* Brightest purple (violet-400) */
+}
+
+/* --- GitHub Pinned Repos Theme --- */
+.pinned-repo-item {
+    background: rgba(76, 29, 149, 0.25);
+    border: 1px solid rgba(107, 33, 168, 0.3);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s ease-in-out;
+}
+
+.pinned-repo-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(167, 139, 250, 0.1);
+}
+
+.pinned-repo-name {
+    color: #e9d5ff;
+    font-weight: 600;
+}
+
+.pinned-repo-description {
+    color: #d1d5db;
+    font-size: 0.875rem;
+    flex-grow: 1;
+}
+
+.pinned-repo-meta {
+    color: #a78bfa;
+    font-size: 0.875rem;
+}

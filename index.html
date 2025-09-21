@@ -6,6 +6,7 @@
     <meta name="description" content="Darwin Christopher - Software Engineer specializing in building innovative solutions. Explore my projects and experience.">
     <title>Darwin's Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,105 +14,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
     <link rel="manifest" href="favicon_io/site.webmanifest">
-    <style>
-        /* Custom styles for the Radiohead "My Iron Lung" theme */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0a0a14; /* A very dark, deep blue/purple */
-            color: #d1d5db; /* text-gray-300 */
-        }
-        .section {
-            padding: 6rem 1rem;
-        }
-        @media (min-width: 768px) {
-            .section {
-                padding: 8rem 2rem;
-            }
-        }
-        .glass-effect {
-            background: rgba(76, 29, 149, 0.15); /* Faint purple glass */
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(107, 33, 168, 0.2);
-        }
-        .tag {
-            background-color: #3b0764; /* Dark purple for tags */
-            color: #e9d5ff; /* A light lavender text */
-        }
-        .timeline-dot {
-            background-color: #a78bfa; /* bg-violet-400 */
-        }
-        .timeline-line {
-            border-color: #a78bfa; /* border-violet-400 */
-        }
-        /* Styles for the interactive canvas background */
-        #hero-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-        /* Ensure hero content is on top of the canvas */
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* --- Styles for 3D Project Cards --- */
-        .project-card-container {
-            perspective: 1000px;
-        }
-        .project-card {
-            transform-style: preserve-3d;
-            will-change: transform;
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
-        }
-        .project-card-container:hover .project-card {
-            box-shadow: 0 25px 50px -12px rgba(167, 139, 250, 0.25);
-        }
-        .project-card .long-desc { display: none; }
-        .project-card-container:hover .project-card .short-desc { display: none; }
-        .project-card-container:hover .project-card .long-desc { display: block; }
-
-        /* --- Styles for Scrolling Skills Section --- */
-        .skills-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        .skills-container {
-            overflow: hidden;
-            -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
-            mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
-        }
-        .skills-track {
-            display: flex;
-            width: fit-content;
-            animation: scroll-left 60s linear infinite;
-        }
-        .skills-track.reverse {
-            animation-direction: reverse;
-        }
-        .skills-track.slower {
-            animation-duration: 90s;
-        }
-        /* Pauses the animation on hover of the entire skills block */
-        .skills-wrapper:hover .skills-track {
-            animation-play-state: paused;
-        }
-        .skill-tag {
-            transition: transform 0.3s ease;
-            cursor: default;
-        }
-        /* Removed the hover effect that caused clipping */
-        
-        @keyframes scroll-left {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="antialiased">
 
@@ -381,6 +284,40 @@
             </div>
         </section>
 
+        <!-- GitHub & Codeforces Section -->
+        <section id="activity" class="section bg-[#121024]">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Activity & Contributions</h2>
+                <div class="grid grid-cols-1 md:max-w-2xl mx-auto">
+                    <!-- Codeforces Card -->
+                    <div class="glass-effect rounded-lg p-6 h-full flex flex-col">
+                        <div class="flex justify-between items-center mb-4">
+                             <h3 class="text-2xl font-bold text-white">Codeforces</h3>
+                             <a href="https://codeforces.com/profile/gesstalt" target="_blank" rel="noopener noreferrer" class="font-medium text-violet-400 hover:text-violet-300 text-sm">
+                                View Profile &rarr;
+                            </a>
+                        </div>
+                        <div id="codeforces-content" class="flex-grow">
+                             <!-- Profile Info (Populated by JS) -->
+                            <div id="cf-profile-info" class="flex items-center space-x-4 mb-6">
+                                <p class="text-gray-400">Loading profile...</p>
+                            </div>
+                            <!-- Rating Chart (Populated by JS) -->
+                            <div>
+                                <h4 class="text-lg font-semibold text-white mb-2">Rating History</h4>
+                                <canvas id="cf-rating-chart"></canvas>
+                            </div>
+                             <!-- Submissions Chart (Populated by JS) -->
+                            <div class="mt-6">
+                                <h4 class="text-lg font-semibold text-white mb-2">Problems Solved (Last Year)</h4>
+                                <canvas id="cf-submissions-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Contact Section -->
         <section id="contact" class="section bg-[#0a0a14]">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl text-center">
@@ -406,226 +343,6 @@
             <p>&copy; <span id="current-year"></span> Darwin Christopher. All Rights Reserved.</p>
         </div>
     </footer>
-
-    <script>
-        // --- Main Initialization Script ---
-        document.addEventListener('DOMContentLoaded', function() {
-            // --- Email Obfuscation ---
-            const user = 'darwinchris.edu0525';
-            const domain = 'gmail.com';
-            const emailLink = document.getElementById('email-link');
-            const emailAddress = `${user}@${domain}`;
-            emailLink.href = `mailto:${emailAddress}`;
-            emailLink.textContent = emailAddress;
-
-            // --- Copy to Clipboard ---
-            const copyBtn = document.getElementById('copy-email-btn');
-            const copyFeedback = document.getElementById('copy-feedback');
-            copyBtn.addEventListener('click', () => {
-                const tempInput = document.createElement('input');
-                tempInput.value = emailAddress;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                try {
-                    document.execCommand('copy');
-                    copyFeedback.classList.remove('opacity-0');
-                    setTimeout(() => { copyFeedback.classList.add('opacity-0'); }, 2000);
-                } catch (err) {
-                    console.error('Failed to copy email: ', err);
-                }
-                document.body.removeChild(tempInput);
-            });
-
-            // --- Set Current Year in Footer ---
-            document.getElementById('current-year').textContent = new Date().getFullYear();
-
-            // --- 3D Project Card Hover Effect ---
-            const cardContainers = document.querySelectorAll('.project-card-container');
-            cardContainers.forEach(container => {
-                const card = container.querySelector('.project-card');
-                container.addEventListener('mouseenter', () => { card.style.transition = 'transform 0.1s linear, box-shadow 0.3s ease'; });
-                container.addEventListener('mousemove', (e) => {
-                    const rect = container.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    const rotateX = ((y - centerY) / centerY) * -12; // Increased rotation
-                    const rotateY = ((x - centerX) / centerX) * 12;  // Increased rotation
-                    card.style.transform = `translateZ(50px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`; // Increased translateZ
-                });
-                container.addEventListener('mouseleave', () => {
-                    card.style.transition = 'transform 0.5s ease, box-shadow 0.5s ease';
-                    card.style.transform = 'translateZ(0) rotateX(0deg) rotateY(0deg)';
-                });
-            });
-
-            // --- Scrolling Skills River ---
-            const skills = [
-                'C#', '.NET', 'Python', 'C++', 'PyTorch', 'Java', 'C', 'Rust', 'PowerShell', 'Git', 'Linux', 
-                'Docker', 'HTML', 'CSS', 'JavaScript', 'NoSQL', 'SQL', 'Postman', 'Swagger', 'ReadyAPI', 
-                'Flask', 'REST APIs', 'Scikit-learn', 'Kubernetes', 'Azure', 'AWS', 'GCP', 'CompTIA Cloud+', 
-                'Unit Testing', 'Test Driven Development', 'Mocked Object Testing', 'Qiskit', 'Pennylane'
-            ];
-            const skillsTracks = document.querySelectorAll('.skills-track > div');
-            
-            // Distribute skills into 3 tracks
-            const skillsPerTrack = Math.ceil(skills.length / 3);
-            const track1Skills = skills.slice(0, skillsPerTrack);
-            const track2Skills = skills.slice(skillsPerTrack, skillsPerTrack * 2);
-            const track3Skills = skills.slice(skillsPerTrack * 2);
-
-            const tracks = [track1Skills, track2Skills, track3Skills];
-
-            skillsTracks.forEach((track, index) => {
-                const currentSkills = tracks[index];
-                // Duplicate the array multiple times to ensure it's long enough for a seamless loop
-                const duplicatedSkills = [...currentSkills, ...currentSkills, ...currentSkills, ...currentSkills]; 
-                
-                duplicatedSkills.forEach(skill => {
-                    const skillElement = document.createElement('span');
-                    skillElement.className = 'skill-tag tag inline-block rounded-full px-5 py-2 text-md font-semibold whitespace-nowrap';
-                    skillElement.textContent = skill;
-                    track.appendChild(skillElement);
-                });
-            });
-        });
-    </script>
-    
-    <script>
-        // --- Interactive Particle Canvas Script ---
-        const canvas = document.getElementById('hero-canvas');
-        const ctx = canvas.getContext('2d');
-        let particlesArray;
-
-        const heroSection = document.getElementById('home');
-        canvas.width = heroSection.clientWidth;
-        canvas.height = heroSection.clientHeight;
-
-        const mouse = {
-            x: null,
-            y: null,
-            radius: (canvas.width / 10) * (canvas.height / 10)
-        };
-
-        window.addEventListener('mousemove', function(event) {
-            const rect = canvas.getBoundingClientRect();
-            mouse.x = event.clientX - rect.left;
-            mouse.y = event.clientY - rect.top;
-        });
-
-        window.addEventListener('mouseout', function() {
-            mouse.x = null;
-            mouse.y = null;
-        });
-
-        class Particle {
-            constructor(x, y, directionX, directionY, size, color) {
-                this.x = x;
-                this.y = y;
-                this.directionX = directionX;
-                this.directionY = directionY;
-                this.size = size;
-                this.color = color;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
-
-            update() {
-                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
-                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
-
-                if (mouse.x !== null && mouse.y !== null) {
-                    let dx = this.x - mouse.x;
-                    let dy = this.y - mouse.y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    const pushRadius = 80;
-                    if (distance < pushRadius) {
-                        const forceDirectionX = dx / distance;
-                        const forceDirectionY = dy / distance;
-                        const force = (pushRadius - distance) / pushRadius;
-                        const pushStrength = 2;
-                        this.x += forceDirectionX * force * pushStrength;
-                        this.y += forceDirectionY * force * pushStrength;
-                    }
-                }
-                
-                this.x += this.directionX;
-                this.y += this.directionY;
-                this.draw();
-            }
-        }
-
-        function init() {
-            particlesArray = [];
-            let numberOfParticles = (canvas.height * canvas.width) / 9000;
-            for (let i = 0; i < numberOfParticles; i++) {
-                let size = (Math.random() * 2) + 1;
-                let x = (Math.random() * ((canvas.width - size * 2) - (size * 2)) + size * 2);
-                let y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2);
-                let directionX = (Math.random() * 0.4) - 0.2;
-                let directionY = (Math.random() * 0.4) - 0.2;
-                let color = '#a78bfa';
-                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
-            }
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-            }
-            connect();
-        }
-
-        function connect() {
-            let opacityValue = 1;
-            const connectionDistanceSquared = (canvas.width / 7) * (canvas.height / 7);
-            for (let a = 0; a < particlesArray.length; a++) {
-                for (let b = a; b < particlesArray.length; b++) {
-                    let distance = ((particlesArray[a].x - particlesArray[b].x) ** 2) + ((particlesArray[a].y - particlesArray[b].y) ** 2);
-                    if (distance < connectionDistanceSquared) {
-                        opacityValue = 1 - (distance / connectionDistanceSquared);
-                        ctx.strokeStyle = `rgba(167, 139, 250, ${opacityValue})`;
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            if (mouse.x !== null && mouse.y !== null) {
-                for(let i = 0; i < particlesArray.length; i++) {
-                    let distance = ((particlesArray[i].x - mouse.x) ** 2) + ((particlesArray[i].y - mouse.y) ** 2);
-                    if (distance < mouse.radius) {
-                        opacityValue = 1 - (distance / mouse.radius);
-                        ctx.strokeStyle = `rgba(233, 213, 255, ${opacityValue})`;
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(mouse.x, mouse.y);
-                        ctx.lineTo(particlesArray[i].x, particlesArray[i].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        window.addEventListener('resize', function() {
-            canvas.width = heroSection.clientWidth;
-            canvas.height = heroSection.clientHeight;
-            mouse.radius = (canvas.width / 10) * (canvas.height / 10);
-            init();
-        });
-
-        init();
-        animate();
-    </script>
+    <script src="script.js" defer></script>
 </body>
 </html>
